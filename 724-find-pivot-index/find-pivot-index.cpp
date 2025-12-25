@@ -2,17 +2,16 @@ class Solution {
 public:
     int pivotIndex(vector<int>& nums) {
         int n = nums.size();
-        vector<int> sumL = nums;
-        vector<int> sumR = nums;
-        for(int i = 1; i < n; i++){
-            sumL[i] += sumL[i-1];
+        long totalSum = 0;
+        for(int i = 0; i < n; i++){ // total sum of array
+            totalSum += nums[i];
         }
-        for(int i = n-2; i >= 0; i--){
-            sumR[i] += sumR[i+1];
-        }
+        long left = 0;
         for(int i = 0; i < n; i++){
-            if(sumL[i] == sumR[i])    return i;
+            long right = totalSum - nums[i] - left;
+            if(left == right) return i;
+            left += nums[i];
         }
-        return -1;
+    return -1;
     }
 };
